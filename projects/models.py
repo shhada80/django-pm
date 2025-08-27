@@ -68,7 +68,12 @@ class Project(models.Model):
     لم ننشئ النموذج User بعد، ولسنا بحاجة لذلك فعلياً؛ حيث يقدم لنا جانغو هذا النموذج بشكل ضمني
     وهو AUTH_USER_MODEL، ويمكن استخدامه هنا لتمثيل هذه العلاقة، وذلك بعد استيراده في الأعلى
     """
-    user = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        # تعني أن الحقل يمكن أن يكون فارغاً
+        null=True
+    )
 
 
     # لتمثيل الكائن بسلسلة نصية، وهي العنوان

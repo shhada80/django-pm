@@ -1,0 +1,15 @@
+{# تحميل مكتبة القوالب (template tags) الخاصة بالترجمة #}
+{% load i18n %}
+{% block content %}
+    {# trans  لترجمة النصوص #}
+    <h3>{% trans 'My Project' %}</h3>
+    {# قائمة عرض المشاريع #}
+    <ul>
+        {% for project in object_list %}
+            <li>{{ project.title }}</li>
+        {# إذا كانت القائمة فارغة #}
+        {% empty %}
+            <li>{% trans 'There are no projects to show' %}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

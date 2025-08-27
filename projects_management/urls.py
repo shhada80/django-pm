@@ -22,6 +22,6 @@ urlpatterns = [
     # إنشاء مسار جديد للتطبيق projects
     # تحديد مسار المشروع، ومسار المشروع الرئيسي يكفي أن نكتب /
     # ملف العناوين في التطبيق include("projects.urls"))
-    path("/", include("projects.urls")),
+    path("", include("projects.urls")),
     path("admin/", admin.site.urls),
 ]
