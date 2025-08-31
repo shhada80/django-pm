@@ -1,0 +1,12 @@
+{% load i18n %}
+{% block content %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Submit">
+    </form>
+    <!--    حذف المشروع-->
+    <a href="{% url 'Project_delete' object.id %}">Delete</a>
+    <!--استيراد قالب المهمة-->
+    {% include 'project/task.html' with project=object %}
+{% endblock %}
