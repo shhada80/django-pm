@@ -1,8 +1,27 @@
+{% extends "base.html" %}
 {% load i18n %}
+
 {% block content %}
-    <form method="post">
-        {% csrf_token %}
-        {{ form }}
-        <input type="submit" value="Submit">
-    </form>
+    <div class="container">
+        <div class="row justify-content-md-center">
+            {# بطاقة لاحتواء الاستمارة #}
+            <div class="card col-md-6 px-0">
+                {# عنوان البطاقة #}
+                <div class="card-header">
+                    <h3 class="mb-0 py-2">{% trans "New Project" %}</h3>
+                </div>
+                {# جسم البطاقة #}
+                <div class="card-body">
+                    <form method="POST">
+                        {% csrf_token %}
+                        {% include "common/form.html" with form=form %}
+                        {# زر إنشاء المشروع #}
+                        <button class="btn btn-success">
+                            {% trans "Create" %}
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

@@ -12,6 +12,25 @@ class ProjectListView(ListView):
     model = models.Project
     # القالب المرتبط مع هذه النافذة
     template_name = 'project/list.html'
+    # عرض 6 مشاريع فقط ضمن الصحفة الواحدة
+    paginate_by = 6
+
+
+    # خاص بفورم البحث
+    # تخصيص الاستعلام
+    def get_queryset(self):
+        # نحصل على قائمة المشاريع
+        query_set = super().get_queryset()
+        # تعريف قائمة لاحتواء الشروط المطلوبة
+        where = {}
+        # هل كلمة البحث ضمن الطلب
+        q = self.request.GET.get('q', None)
+        if q:
+            where['title__icontains'] = q
+        # إنشاء الاستعلام وتمرير الشروط
+        return query_set.filter(**where)
+
+
 
 # إنشاء المشروع
 class ProjectCreateView(CreateView):

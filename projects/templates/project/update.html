@@ -1,12 +1,72 @@
+<!--الوراثة من القالب base-->
+{% extends "base.html" %}
+{% load humanize %}
 {% load i18n %}
+
 {% block content %}
-    <form method="post">
-        {% csrf_token %}
-        {{ form }}
-        <input type="submit" value="Submit">
-    </form>
-    <!--    حذف المشروع-->
-    <a href="{% url 'Project_delete' object.id %}">Delete</a>
-    <!--استيراد قالب المهمة-->
-    {% include 'project/task.html' with project=object %}
+    <!--    عنوان الصفحة-->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page">
+                <h5>
+                    {{ object.title }}
+                </h5>
+            </li>
+        </ol>
+    </nav>
+    <!--معلومات المشروع الرئيسية-->
+    <div class="row">
+        <!--        تقسيم الواجهة إلى قسمين:-->
+        <!--        القسم الأول: ثلاثة أعمدة-->
+        <!--        القسم الخاص بمعلومات المشروع وزر حفظ وحذف-->
+        <div class="col-md-3">
+            <!--            استمارة المشروع-->
+            <form method="POST">
+                <div class="card">
+                    <div class="card-body">
+                        {% csrf_token %}
+                        <!--                        حقول المشروع-->
+                        {% for field in form %}
+                            <div class="mb-3">
+                                {{ field }}
+                            </div>
+                        {% endfor %}
+                        <div class="d-flex mt-2">
+                            <!--                            توقيت المشروع-->
+                            <span class="me-auto text-muted small">
+                                <i class="bi bi-clock"></i>
+                                <time datetime="{{ project.create_at }}">
+                                    {{ object.create_at|naturaltime }}
+                                </time>
+                            </span>
+                        </div>
+                    </div>
+
+                        <div class="card-footer">
+                            <div class="d-grid gap-2">
+                                <!--                                زر حفظ-->
+                                <button class="btn btn-success">
+                                    <i class="bi bi-save"></i>
+                                    {% trans 'Save' %}
+                                </button>
+                                <!--    زر حذف المشروع-->
+                                <a class="btn btn-danger" href="{% url 'Project_delete' object.id %}">
+                                    <i class="bi bi-trash"></i>
+                                    {% trans 'Delete' %}
+                                </a>
+                            </div>
+                        </div>
+                </div>
+            </form>
+        </div>
+
+        <!--        القسم الثاني: تسعة أعمدة-->
+        <!--        القسم الخاص بإدارة المهام-->
+        <div class="col-md-9 mt-2 mt-md-0">
+            {#{% include 'projects/project_task_stats.html' with project=object %}#}
+            <!--استيراد قالب المهمة-->
+            {% include 'project/task.html' with project=object %}
+        </div>
+    </div>
 {% endblock %}
+
