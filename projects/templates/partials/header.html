@@ -12,6 +12,26 @@
           <a class="nav-link active" aria-current="page" href="{% url 'Project_list' %}">{% trans 'Home' %}</a>
         </li>
       </ul>
+        <!--        عدم إظهار مربع البحث إن لم يكن المستخدم مسجلاً الدخول-->
+        {% if user.is_authenticated %}
+            <!--        قائمة المستخدم: رابط الملف الشخصي-->
+           <ul class="navbar-nav mb-2 mb-lg-0 me-3">
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    {{ user.username }}
+                  </a>
+                      <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="{% url 'profile' %}">{% trans 'Profile' %}</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                              <form method="post" action="{% url 'logout' %}">
+                                {% csrf_token %}
+                                <button type="submit" class="dropdown-item">{% trans 'Logout' %}</button>
+                              </form>
+                        </li>
+                      </ul>
+                </li>
+          </ul>
         <!--        البحث-->
         <form method="GET" action="{% url 'Project_list' %}" class="d-flex">
                         <!--                        مدخل نصي-->
@@ -29,6 +49,15 @@
                            </button>
                        </div>
         </form>
+        {% else %}
+            <!--        رابط تسجيل الدخول عوضاً عن مربع البحث-->
+              <a class="btn btn-outline-light mx-2" href="{% url 'register' %}">
+                {% trans 'Register' %}
+               </a>
+               <a class="btn btn-outline-light" href="{% url 'login' %}">
+                {% trans 'Login' %}
+               </a>
+        {% endif %}
     </div>
   </div>
 </nav>

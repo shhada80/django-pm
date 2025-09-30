@@ -24,6 +24,7 @@ urlpatterns = [
     # تحديد مسار المشروع، ومسار المشروع الرئيسي يكفي أن نكتب /
     # ملف العناوين في التطبيق include("projects.urls"))
     path("", include("projects.urls")),
+    path("accounts/", include("accounts.urls")),
     path("admin/", admin.site.urls),
     # خاص بشرط التطوير
     path('__debug__/', include(debug_toolbar.urls)),

@@ -5,9 +5,12 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from . import models
 from . import forms
 
+# الصنف LoginRequiredMixin مهم حتى لا نسمح بإضافة مشروع إلا للمسجلين
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+
 
 # Create your views here.
-class ProjectListView(ListView):
+class ProjectListView(LoginRequiredMixin, ListView):
     # نحدد النموذج المرتبط مع هذه النافذة
     model = models.Project
     # القالب المرتبط مع هذه النافذة
@@ -33,7 +36,7 @@ class ProjectListView(ListView):
 
 
 # إنشاء المشروع
-class ProjectCreateView(CreateView):
+class ProjectCreateView(LoginRequiredMixin, CreateView):
     # نحدد النموذج المرتبط مع هذه النافذة
     model = models.Project
     # نحدد الاستمارة
@@ -45,7 +48,7 @@ class ProjectCreateView(CreateView):
     success_url = reverse_lazy('Project_list')
 
 # تعديل المشروع
-class ProjectUpdateView(UpdateView):
+class ProjectUpdateView(LoginRequiredMixin, UpdateView):
     # نحدد النموذج المرتبط مع هذه النافذة
     model = models.Project
     # نحدد الاستمارة
@@ -61,7 +64,7 @@ class ProjectUpdateView(UpdateView):
         return reverse('Project_update', args=[self.object.id])
 
 # حذف المشروع
-class ProjectDeleteView(DeleteView):
+class ProjectDeleteView(LoginRequiredMixin, DeleteView):
     # نحدد النموذج المرتبط مع هذه النافذة
     model = models.Project
     # القالب المرتبط مع هذه النافذة
@@ -70,7 +73,7 @@ class ProjectDeleteView(DeleteView):
     success_url = reverse_lazy('Project_list')
 
 # إنشاء مهمة
-class TaskCreateView(CreateView):
+class TaskCreateView(LoginRequiredMixin, CreateView):
     # نحدد النموذج المرتبط مع هذه النافذة
     model = models.Task
     # الحقول المطلوبة عند إنشاء المهمة
@@ -82,7 +85,7 @@ class TaskCreateView(CreateView):
         return reverse('Project_update', args=[self.object.project.id])
 
 # تحديث مهمة
-class TaskUpdateView(UpdateView):
+class TaskUpdateView(LoginRequiredMixin, UpdateView):
     # نحدد النموذج المرتبط مع هذه النافذة
     model = models.Task
     # الحقول المطلوبة عند إنشاء المهمة
@@ -94,7 +97,7 @@ class TaskUpdateView(UpdateView):
         return reverse('Project_update', args=[self.object.project.id])
 
 # حذف مهمة
-class TaskDeleteView(DeleteView):
+class TaskDeleteView(LoginRequiredMixin, DeleteView):
     # نحدد النموذج المرتبط مع هذه النافذة
     model = models.Task
 
