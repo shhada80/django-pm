@@ -21,8 +21,10 @@
                     {{ user.username }}
                   </a>
                       <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <!--                          رابط الملف الشخصي-->
                         <li><a class="dropdown-item" href="{% url 'profile' %}">{% trans 'Profile' %}</a></li>
                         <li><hr class="dropdown-divider"></li>
+                        <!--                          رابط تسجيل الخروج-->
                         <li>
                               <form method="post" action="{% url 'logout' %}">
                                 {% csrf_token %}

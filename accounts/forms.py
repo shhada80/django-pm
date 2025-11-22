@@ -62,11 +62,15 @@ class UserRegisterForm(UserCreationForm):
 
 
 class ProfileForm(UserChangeForm):
+    # إخفاء حقل كلمة السر
     password = None
 
     class Meta:
+        # الموديل المطلوب
         model = User
+        # الحقول المطلوبة
         fields = ['first_name', 'last_name', 'email']
+        # إضافة كلاس بوستراب
         widgets = {
             'first_name': forms.TextInput(attrs=attrs),
             'last_name': forms.TextInput(attrs=attrs),
