@@ -25,7 +25,11 @@ class ProjectListView(LoginRequiredMixin, ListView):
         # نحصل على قائمة المشاريع
         query_set = super().get_queryset()
         # تعريف قائمة لاحتواء الشروط المطلوبة
-        where = {}
+        # يظهر لكل مستخدم مشاريعه فقط
+        where = {'user_id': self.request.user}
+        # يظهر لكل مستخدم مشاريعه ومشاريع غيره
+        # where = {}
+
         # هل كلمة البحث ضمن الطلب
         q = self.request.GET.get('q', None)
         if q:
@@ -47,8 +51,16 @@ class ProjectCreateView(LoginRequiredMixin, CreateView):
     # رابط إعادة التوجيه، وهو الصفحة الرئيسية أو قائمة المشاريع
     success_url = reverse_lazy('Project_list')
 
+    # التحقق من بيانات الاستمارة
+    def form_valid(self, form):
+        # المستخدم صاحب المشروع أو صاحب الطلب
+        # عند حفظ المشروع سنحفظ آي دي المستخدم
+        form.instance.user = self.request.user # آي دي المستخدم
+        # استدعاء الدالة الأصلية
+        return super().form_valid(form)
+
 # تعديل المشروع
-class ProjectUpdateView(LoginRequiredMixin, UpdateView):
+class ProjectUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     # نحدد النموذج المرتبط مع هذه النافذة
     model = models.Project
     # نحدد الاستمارة
@@ -63,8 +75,16 @@ class ProjectUpdateView(LoginRequiredMixin, UpdateView):
     def get_success_url(self):
         return reverse('Project_update', args=[self.object.id])
 
+    # التحقق من المستخدم قبل عرض الصفحة
+    # لا يجوز تعديل مشروع ليس من مشاريع المستخدم الحالي
+    def test_func(self):
+        # مقارنة آي دي المستخدم صاحب المشروع مع آي دي المستخدم الحالي صاحب الطلب
+        # افتح الصفحة إذا كانت القيمة هي True
+        # وإلا فلا تفتحها؛ لأن هذا يعني المشروع ليس للمستخدم الحالي
+        return self.get_object().user_id == self.request.user.id
+
 # حذف المشروع
-class ProjectDeleteView(LoginRequiredMixin, DeleteView):
+class ProjectDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     # نحدد النموذج المرتبط مع هذه النافذة
     model = models.Project
     # القالب المرتبط مع هذه النافذة
@@ -72,8 +92,15 @@ class ProjectDeleteView(LoginRequiredMixin, DeleteView):
     # رابط إعادة التوجيه، وهو الصفحة الرئيسية أو قائمة المشاريع
     success_url = reverse_lazy('Project_list')
 
+    # لا يجوز تعديل مشروع ليس من مشاريع المستخدم الحالي
+    def test_func(self):
+        # مقارنة آي دي المستخدم صاحب المشروع مع آي دي المستخدم الحالي صاحب الطلب
+        # افتح الصفحة إذا كانت القيمة هي True
+        # وإلا فلا تفتحها؛ لأن هذا يعني المشروع ليس للمستخدم الحالي
+        return self.get_object().user_id == self.request.user.id
+
 # إنشاء مهمة
-class TaskCreateView(LoginRequiredMixin, CreateView):
+class TaskCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     # نحدد النموذج المرتبط مع هذه النافذة
     model = models.Task
     # الحقول المطلوبة عند إنشاء المهمة
@@ -84,8 +111,17 @@ class TaskCreateView(LoginRequiredMixin, CreateView):
     def get_success_url(self):
         return reverse('Project_update', args=[self.object.project.id])
 
+    # لا يجوز تعديل مشروع ليس من مشاريع المستخدم الحالي
+    def test_func(self):
+        # مقارنة آي دي المستخدم صاحب المشروع مع آي دي المستخدم الحالي صاحب الطلب
+        # افتح الصفحة إذا كانت القيمة هي True
+        # وإلا فلا تفتحها؛ لأن هذا يعني المشروع ليس للمستخدم الحالي
+        # تحديد آي دي المشروع، ونحصل عليه من كائن الطلب
+        project_id = self.request.POST.get('project', '')
+        return models.Project.objects.get(pk=project_id).user_id == self.request.user.id
+
 # تحديث مهمة
-class TaskUpdateView(LoginRequiredMixin, UpdateView):
+class TaskUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     # نحدد النموذج المرتبط مع هذه النافذة
     model = models.Task
     # الحقول المطلوبة عند إنشاء المهمة
@@ -96,11 +132,25 @@ class TaskUpdateView(LoginRequiredMixin, UpdateView):
     def get_success_url(self):
         return reverse('Project_update', args=[self.object.project.id])
 
+    # لا يجوز تعديل مشروع ليس من مشاريع المستخدم الحالي
+    def test_func(self):
+        # مقارنة آي دي المستخدم صاحب المشروع مع آي دي المستخدم الحالي صاحب الطلب
+        # افتح الصفحة إذا كانت القيمة هي True
+        # وإلا فلا تفتحها؛ لأن هذا يعني المشروع ليس للمستخدم الحالي
+        return self.get_object().project.user_id == self.request.user.id
+
 # حذف مهمة
-class TaskDeleteView(LoginRequiredMixin, DeleteView):
+class TaskDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     # نحدد النموذج المرتبط مع هذه النافذة
     model = models.Task
 
    # لإعادة التوجيه لصفحة المشروع
     def get_success_url(self):
         return reverse('Project_update', args=[self.object.project.id])
+
+    # لا يجوز تعديل مشروع ليس من مشاريع المستخدم الحالي
+    def test_func(self):
+        # مقارنة آي دي المستخدم صاحب المشروع مع آي دي المستخدم الحالي صاحب الطلب
+        # افتح الصفحة إذا كانت القيمة هي True
+        # وإلا فلا تفتحها؛ لأن هذا يعني المشروع ليس للمستخدم الحالي
+        return self.get_object().project.user_id == self.request.user.id
