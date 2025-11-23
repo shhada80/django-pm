@@ -1,5 +1,7 @@
 from django import forms
 from . import models
+# خاص بتعريب العبارات
+from django.utils.translation import gettext as _
 
 # نعرف attribute
 attrs = {'class': 'form-control'}
@@ -14,6 +16,13 @@ class ProjectCreateForm(forms.ModelForm):
         # تحديد الحقول المطلوبة في هذه الاستمارة
         # لا نريد جميع الحقول لإدخالها، فحقل الحالة سيحدد تلقائياً عند إنشاء المشروع، وكذلك تاريخ الإنشاء والتحديث، والمستخدم صاحب المشروع
         fields = ['category', 'title', 'description']
+        # تحديد العناوين
+        labels = {
+            'category': _('Category'),
+            'title': _('Title'),
+            'description': _('Description'),
+        }
+
         # تحديد الحقول
         widgets = {
             'category': forms.Select(attrs=attrs),

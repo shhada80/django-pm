@@ -1,7 +1,8 @@
 from django.db import models
 # نموذج User يقدمه لنا جانغو ضمنياً؛ لتمثيل العلاقة بين المستخدم والمشروع
 from django.conf.global_settings import AUTH_USER_MODEL
-
+# خاص بتعريب العبارات
+from django.utils.translation import gettext as _
 
 # Create your models here.
 
@@ -31,10 +32,18 @@ class ProjectStatus(models.IntegerChoices):
     بينما القيمة 1 هي التي ستخزن في قاعدة البيانات
     أما كلمة PENDING يمكن استخدامها ضمن الشيفرة بدلاً من الرقم 1 للوضوح وتجنب الأخطاء
     """
-    PENDING = 1, 'Pending' # قيد التنفيذ
-    COMPLETED = 2, 'Completed' # مكتمل
-    POSTPONED = 3, 'Postponed' # مؤجل
-    CANCELLED = 4, 'Cancelled' # ملغي
+    # PENDING = 1, 'Pending' # قيد التنفيذ
+    # COMPLETED = 2, 'Completed' # مكتمل
+    # POSTPONED = 3, 'Postponed' # مؤجل
+    # CANCELLED = 4, 'Cancelled' # ملغي
+
+    # # ترجمة حالة المشروع
+    PENDING = 1, _('Pending') # قيد التنفيذ
+    COMPLETED = 2, _('Completed')  # مكتمل
+    POSTPONED = 3, _('Postponed') # مؤجل
+    CANCELED = 4, _('Canceled') # ملغي
+
+
 
 # المشروع
 class Project(models.Model):
