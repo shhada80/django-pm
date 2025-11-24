@@ -24,10 +24,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-#w#v9_!jj$7@7675*ecd542u_l$c)l!!rq)2&m1ibcaox(btg@"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-if os.getenv('DJANGO_ENV') == 'production':
-    DEBUG = False
-else:
-    DEBUG = True
+# if os.getenv('DJANGO_ENV') == 'production':
+#     DEBUG = False
+# else:
+#     DEBUG = True
+DEBUG = False
 
 # العناوين المسموحة لعمل الموقع
 ALLOWED_HOSTS = [
@@ -158,22 +159,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-# STATIC_URL = '/static/'
-# # STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-# STATIC_ROOT = BASE_DIR / 'staticfiles'
-#
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
-
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
-STORAGES = {
-    "default": {
-        "BACKEND": "django.core.files.storage.FileSystemStorage",
-    },
-    "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
-    },
-}
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+
+WHITENOISE_USE_FINDERS = True
+WHITENOISE_AUTOREFRESH = True
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

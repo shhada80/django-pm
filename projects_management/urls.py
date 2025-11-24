@@ -17,6 +17,10 @@ Including another URLconf
 import debug_toolbar
 from django.contrib import admin
 from django.urls import path, include
+
+from django.conf import settings
+from django.conf.urls.static import static
+
 # خاص بتعريب العبارات
 from django.utils.translation import gettext as _
 
@@ -34,4 +38,5 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     # خاص بشرط التطوير
     path('__debug__/', include(debug_toolbar.urls)),
+    static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 ]
