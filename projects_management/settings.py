@@ -161,7 +161,8 @@ STORAGES = {
         "BACKEND": "django.core.files.storage.FileSystemStorage",
     },
     "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+        # لاحظ التغيير هنا: استخدمنا النوع الذي يضغط الملفات دون تتبع دقيق (أكثر أماناً للمبتدئين)
+        "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
     },
 }
 
