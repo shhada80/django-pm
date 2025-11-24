@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-23 13:35+0300\n"
+"POT-Creation-Date: 2025-11-24 13:07+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -135,3 +135,8 @@ msgstr "إضافة"
 #: .\projects\templates\project\update.html:50
 msgid "Save"
 msgstr "حفظ"
+
+#: .\projects_management\urls.py:24 .\projects_management\urls.py:26
+#| msgid "Project Management"
+msgid "Projects Management"
+msgstr "إدارة المشاريع"

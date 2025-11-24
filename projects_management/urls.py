@@ -17,7 +17,13 @@ Including another URLconf
 import debug_toolbar
 from django.contrib import admin
 from django.urls import path, include
+# خاص بتعريب العبارات
+from django.utils.translation import gettext as _
 
+# تعديل عنوان لوحة التحكم من (إدارة جانغو) إلى (إدارة المشاريع)
+admin.site.site_header = _('Projects Management')
+# تعديل عنوان الصفحة الذي يظهر في شريط المتصفح (إدارة الموقع | إدارة موقع جانغو)
+admin.site.site_title = _('Projects Management')
 
 urlpatterns = [
     # إنشاء مسار جديد للتطبيق projects
