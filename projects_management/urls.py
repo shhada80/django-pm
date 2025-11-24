@@ -37,7 +37,8 @@ urlpatterns = [
     path("accounts/", include("accounts.urls")),
     path("admin/", admin.site.urls),
     # خاص بشرط التطوير
-    path('__debug__/', include(debug_toolbar.urls)),
+    # احذف أو عطّل debug_toolbar في الإنتاج
+    # path('__debug__/', include(debug_toolbar.urls)),
 ]
 
 # إضافة مسارات الملفات الثابتة

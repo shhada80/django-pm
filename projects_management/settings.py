@@ -28,12 +28,16 @@ SECRET_KEY = "django-insecure-#w#v9_!jj$7@7675*ecd542u_l$c)l!!rq)2&m1ibcaox(btg@
 #     DEBUG = False
 # else:
 #     DEBUG = True
+# ==========================================
+# 1. إعدادات الأمان (Production Settings)
+# ==========================================
 DEBUG = False
 
 # العناوين المسموحة لعمل الموقع
 ALLOWED_HOSTS = [
     'django.shhada.net',
-    '127.0.0.1'
+    '127.0.0.1',
+    'localhost',
 ]
 
 # السماح للموقع باستقبال طلبات من الدومين المحمي
@@ -56,12 +60,16 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django.contrib.humanize",
     # شريط التطوير
-    'debug_toolbar',
+    # احذف أو عطّل debug_toolbar في الإنتاج
+    # 'debug_toolbar',
     # التصريح عن التطبيقات الجديدة
     "accounts",
     "projects",
 ]
 
+# ==========================================
+# 2. إعدادات Middleware (الترتيب مهم)
+# ==========================================
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     # هذا السطر هو المسؤول عن إظهار التصميم في وضع البرودكشن
@@ -159,6 +167,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
+# ==========================================
+# 3. إعدادات الملفات الثابتة (WhiteNoise Storage)
+# ==========================================
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
