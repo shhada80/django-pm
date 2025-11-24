@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-24 13:07+0300\n"
+"POT-Creation-Date: 2025-11-24 14:14+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,9 +19,9 @@ msgstr ""
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
-#: .\projects\forms.py:21
+#: .\projects\forms.py:21 .\projects\models.py:22 .\projects\models.py:23
 msgid "Category"
-msgstr "الفئة"
+msgstr "التصنيف"
 
 #: .\projects\forms.py:22
 msgid "Title"
@@ -31,21 +31,36 @@ msgstr "العنوان"
 msgid "Description"
 msgstr "الوصف"
 
-#: .\projects\models.py:41
+#: .\projects\models.py:46
 msgid "Pending"
 msgstr "قيد التنفيذ"
 
-#: .\projects\models.py:42
+#: .\projects\models.py:47
 msgid "Completed"
 msgstr "مكتمل"
 
-#: .\projects\models.py:43
+#: .\projects\models.py:48
 msgid "Postponed"
 msgstr "مؤجل"
 
-#: .\projects\models.py:44
+#: .\projects\models.py:49
 msgid "Canceled"
 msgstr "ملغى"
+
+#: .\projects\models.py:99
+#| msgid "My Projects"
+msgid "Projects"
+msgstr "مشاريعي"
+
+#: .\projects\models.py:100
+#| msgid "New Project"
+msgid "Project"
+msgstr "مشروع جديد"
+
+#: .\projects\models.py:122 .\projects\models.py:123
+#| msgid "New Task"
+msgid "Task"
+msgstr "مهمة جديدة"
 
 #: .\projects\templates\partials\footer.html:6
 msgid "Copyright © 2025 Hsoub, All Rights Reserved."
@@ -137,6 +152,5 @@ msgid "Save"
 msgstr "حفظ"
 
 #: .\projects_management\urls.py:24 .\projects_management\urls.py:26
-#| msgid "Project Management"
 msgid "Projects Management"
 msgstr "إدارة المشاريع"

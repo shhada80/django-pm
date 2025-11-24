@@ -17,6 +17,11 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        # صنف فرعي نحدد فيه بعض الخصائص لهذه النماذج، وهذا مفيد لتعريبها؛ كي تظهر معربة في لوحة التحكم
+        verbose_name = _('Category') # الاسم في حالة المفرد
+        verbose_name_plural = _('Category') # الاسم في حالة الجمع، وبدون هذا السطر سيظهر حرف s بجانب الاسم
+
 
 # نموذج مساعد للمشروع خاص بحالة المشروع
 """
@@ -89,6 +94,11 @@ class Project(models.Model):
     def __str__(self):
         return self.title
 
+    class Meta:
+        # صنف فرعي نحدد فيه بعض الخصائص لهذه النماذج، وهذا مفيد لتعريبها؛ كي تظهر معربة في لوحة التحكم
+        verbose_name = _('Projects')  # الاسم في حالة المفرد
+        verbose_name_plural = _('Project') # الاسم في حالة الجمع، وبدون هذا السطر سيظهر حرف s بجانب الاسم
+
 
 # المهمة
 class Task(models.Model):
@@ -106,3 +116,8 @@ class Task(models.Model):
     # لتمثيل الكائن بسلسلة نصية، وهي الوصف
     def __str__(self):
         return self.description
+
+    class Meta:
+        # صنف فرعي نحدد فيه بعض الخصائص لهذه النماذج، وهذا مفيد لتعريبها؛ كي تظهر معربة في لوحة التحكم
+        verbose_name = _('Task') # الاسم في حالة المفرد
+        verbose_name_plural = _('Task') # الاسم في حالة الجمع، وبدون هذا السطر سيظهر حرف s بجانب الاسم
