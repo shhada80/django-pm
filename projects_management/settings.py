@@ -32,6 +32,14 @@ ALLOWED_HOSTS = [
     '127.0.0.1'
 ]
 
+# السماح للموقع باستقبال طلبات من الدومين المحمي
+CSRF_TRUSTED_ORIGINS = [
+    'https://django.shhada.net',
+]
+
+# إخبار جانغو بأنه يعمل خلف بروكسي (HTTPS)
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 
 # Application definition
 
