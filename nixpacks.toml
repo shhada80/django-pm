@@ -8,4 +8,4 @@ cmds = ["pip install -r requirements.txt"]
 cmds = ["python manage.py collectstatic --noinput --clear"]
 
 [start]
-cmd = "gunicorn --bind 0.0.0.0:8000 --workers 3 projects_management.wsgi:application"
+cmd = "gunicorn --bind 0.0.0.0:8000 --workers 2 --timeout 120 --graceful-timeout 120 projects_management.wsgi:application"
